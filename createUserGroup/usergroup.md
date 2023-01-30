@@ -65,3 +65,14 @@ And after creating the group I can see json file with policies
 }
 ```
 
+Let's create a new user with enable console access and console password
+
+
+![alt](/createUserGroup/assets/5.png)
+
+Here we are going to add him to a Developer_Group
+after adding we can see the Roles of the group.
+
+![alt](/createUserGroup/assets/6.png)
+
+![alt](/createUserGroup/assets/7.png)
