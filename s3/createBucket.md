@@ -24,4 +24,4 @@ And I can open my video and see the content:
 ![video2](5.png)
 
 You also can download this files from your bucket. For not charging purposes have to delete the bucket, before deleting please empty the bucket by clicking empty and permanent delete. 
-
+then delete the bucket
