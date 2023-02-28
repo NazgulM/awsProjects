@@ -196,6 +196,7 @@ sudo systemctl start jenkins
 
 sudo systemctl status jenkins
 ~                           ```
+
 ![jenkins](jenkins.png)
 
 
