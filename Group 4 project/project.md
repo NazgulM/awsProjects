@@ -15,7 +15,7 @@ Group 4: Write Bash Script that creates:
 ```
 
 1) Created the EC2 instance named project in N.Virginia us-east-1d AZ, used default VPC and created the key-pair.
-2) Next step is creating Access Key for user --> User --> Create Access Key--> Create Access Key. 
+2) Next step is creating Access Key for user --> User --> Create Access Key--> Create Access Key.
 
 ```
    Create AWS VPC
@@ -69,7 +69,7 @@ aws ec2 create-subnet --vpc-id vpc-041f0c0d5014abefe --cidr-block 10.0.1.0/24 --
 
 ![subnet 1](subnet1.png)
 
-Second subnet 
+Second subnet
 
 ```
 aws ec2 create-subnet --vpc-id vpc-041f0c0d5014abefe --cidr-block 10.0.2.0/24 --availability-zone us-east-1b
@@ -82,6 +82,7 @@ aws ec2 create-subnet --vpc-id vpc-041f0c0d5014abefe --cidr-block 10.0.2.0/24 --
  ```
  aws ec2 create-internet-gateway
  ```
+
 using this command in bash script created Internet Gateway
 
 ![internet gateway](ig.png)
@@ -91,11 +92,13 @@ Task 6. Attach Internet Gateway to VPC "vpc-group-4"
 ```
 aws ec2 attach-internet-gateway --internet-gateway-id igw-062898f681cc8d4c3 --vpc-id vpc-041f0c0d5014abefe
 ```
+
 ![attaching](attach.png)
 
 Task 7. Create EC2 Instance named "ec2-group-4" with security group "sg-group-4"
 
-Total bash script of vpc.sh 
+Total bash script of vpc.sh
+
 ```
 #!/bin/bash
 
@@ -170,7 +173,6 @@ sg_id="sg-008a45fdd2e519d3e"
 aws ec2 run-instances --region $region --image-id $ami_id --instance-type $instance --key-name MyKeyPair --security-group-ids $sg_id --subnet-id subnet-0f6234c86b6118936
 ```
 
-
 For the nest task for installing Jenkins on new ec2-group-4 instance, I have to edit routes--> add routes 0.0.0.0/0 as the destinations and the internet gateway as the target.
 Created the jenkins.sh file for installing on ec2 instance
 
@@ -195,9 +197,8 @@ sudo systemctl enable jenkins
 sudo systemctl start jenkins
 
 sudo systemctl status jenkins
-~                           ```
+
+```
+
 
 ![jenkins](jenkins.png)
-
-
-
