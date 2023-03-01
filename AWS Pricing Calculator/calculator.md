@@ -6,6 +6,6 @@ Create estimate --> Choose services--> Aurora Database --> Aurora MySQL compatib
 
 ![est](est.png)
 
-If add service--> Add Service --> EC2 instance--> Quick estimate, going to default settings--> 100instances--> On-Demand Instances --> Add to my estimate 
+If add service--> Add Service --> EC2 instance--> Quick estimate, going to default settings--> 100instances--> On-Demand Instances --> Add to my estimate
 
 ![total](total.png)
