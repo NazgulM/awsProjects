@@ -158,6 +158,7 @@ chmod 400 MyKeyPair.pem
 ```
 
 ```
+
 # For creating EC2 instance I will create some variables related to this:
 # Set the region to N.Virginia
 region="us-east-1"
@@ -179,7 +180,7 @@ For the next task for installing Jenkins on new ec2-group-4 instance, I have to 
 
 ```
 aws configure
-``
+```
 
 Created the jenkins.sh file for installing on ec2 instance
 
@@ -208,7 +209,5 @@ sudo systemctl start jenkins
 sudo systemctl status jenkins
 
 ```
-
-
 
 ![jenkins](jenkins.png)
