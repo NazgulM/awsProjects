@@ -184,7 +184,9 @@ aws configure
 Created the jenkins.sh file for installing on ec2 instance
 
 ```
+
 #!/bin/bash
+
 
 sudo yum update –y
 
@@ -206,6 +208,7 @@ sudo systemctl start jenkins
 sudo systemctl status jenkins
 
 ```
+
 
 
 ![jenkins](jenkins.png)
