@@ -1,4 +1,4 @@
-# Project
+# Group -4 Project
 
 ```
 Please create EC2-Instance named "Project" and perform all your tasks there(for Group3 and Group4):
@@ -15,10 +15,12 @@ Group 4: Write Bash Script that creates:
 ```
 
 1) Created the EC2 instance named project in N.Virginia us-east-1d AZ, used default VPC and created the key-pair.
-2) Next step is creating Access Key for user --> User --> Create Access Key--> Create Access Key.
+2) Next step is creating Access Key for user --> User --> Create Access Key
 
 ```
-   Create AWS VPC
+!#/bin/bash 
+
+# Create AWS VPC
 # Variables used in this project
 vpcName="vpc-group-4"
 cidrBlock="10.0.0.0/16"
@@ -173,7 +175,12 @@ sg_id="sg-008a45fdd2e519d3e"
 aws ec2 run-instances --region $region --image-id $ami_id --instance-type $instance --key-name MyKeyPair --security-group-ids $sg_id --subnet-id subnet-0f6234c86b6118936
 ```
 
-For the nest task for installing Jenkins on new ec2-group-4 instance, I have to edit routes--> add routes 0.0.0.0/0 as the destinations and the internet gateway as the target.
+For the next task for installing Jenkins on new ec2-group-4 instance, I have to edit routes--> add routes 0.0.0.0/0 as the destinations and the internet gateway as the target.
+
+```
+aws configure
+``
+
 Created the jenkins.sh file for installing on ec2 instance
 
 ```
