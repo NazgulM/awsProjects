@@ -182,7 +182,7 @@ For the next task for installing Jenkins on new ec2-group-4 instance, I have to 
 aws configure
 ```
 
-Created the jenkins.sh file for installing on ec2 instance
+Created the jenkins.sh file for installing Jenkins on ec2 instance
 
 ```
 
