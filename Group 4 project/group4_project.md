@@ -1,16 +1,4 @@
-# Group-4 Project
-
-Group 4: Write Bash Script that creates:
-
-1. VPC named "vpc-group-4" with CIDR block 10.0.0.0/16
-2. Security group named "sg-group-4"
-3. Open inbound ports 22, 80, 443 for everything in security group "sg-group-4"
-4. Create 3 public subnets: 10.0.1.0/24, 10.0.2.0/24, 10.0.3.0/24 in each availability zones respectively(us-east-2a, us-east-2b, us-east-2c)
-5. Create Internet Gateway
-6. Attach Internet Gateway to VPC "vpc-group-4"
-7. Create EC2 Instance named "ec2-group-4" with security group "sg-group-4"
-8. Install Jenkins on EC2 "ec2-group-4"
-
+# Project
 
 ```
 #!/bin/bash
@@ -42,27 +30,27 @@ key_name="practice_key"
 echo -e "Task-1. Create VPC named "vpc-group-4" with CIDR block 10.0.0.0/16/n Creating VPC..."
 vpc_id=$(aws ec2 create-vpc --cidr-block $cidr_vpc --query Vpc.VpcId --output text --region $aws_region)
 
-echo "VPC ID '$vpc_id' created in $aws_region." 
+echo "Success!! VPC ID '$vpc_id' created in $aws_region." 
 
 echo "Naming the VPC.."
 aws ec2 create-tags --resources $vpc_id --tags "Key=Name,Value=$vpc_name" --region $aws_region
 
-echo "VPC ID '$vpc_id' named as '$vpc_name'"
+echo "Success!! VPC ID '$vpc_id' named as '$vpc_name'"
 
 echo "Task-2 Create security group named sg-group-4"
 echo "Creating Security Group .."
 
 sg_id=$(aws ec2 create-security-group --group-name $sg_group_name  --description "Security group -1" --vpc-id $vpc_id --query 'GroupId' --output text --region $aws_region)
 
-echo "Security Group '$sg_id' created as $sg_group_name "
+echo "Success!! Security Group '$sg_id' created as $sg_group_name "
 
 echo "Task-3 Open inbound ports 22 SSH, 80 HTTP, 443 HTTPS  for everything in security group sg-group-4"
-echo "Adding inbound Rules .."
+echo "Adding Inbound Rules .."
 aws ec2 authorize-security-group-ingress --group-id $sg_id --protocol tcp --port 22 --cidr 0.0.0.0/0 --region $aws_region
 aws ec2 authorize-security-group-ingress --group-id $sg_id --protocol tcp --port 80 --cidr 0.0.0.0/0 --region $aws_region
 aws ec2 authorize-security-group-ingress --group-id $sg_id --protocol tcp --port 443 --cidr 0.0.0.0/0 --region $aws_region
 
-echo "Inbound Rules added for SSH, HTTP & HTTPS types with 22, 80 & 443 Port Range"
+echo "Success!! Inbound Rules added for SSH, HTTP & HTTPS types with 22, 80 & 443 Port Range"
 
 echo "Task-4 Create 3 public subnets: 10.0.1.0/24, 10.0.2.0/24, 10.0.3.0/24 in each availability zones respectively(us-east-2a, us-east-2b, us-east-2c)"
 
@@ -72,7 +60,7 @@ subnet_public_id_1=$(aws ec2 create-subnet --vpc-id $vpc_id --cidr-block $subnet
 subnet_public_id_2=$(aws ec2 create-subnet --vpc-id $vpc_id --cidr-block $subnet_public_cidr_2 --availability-zone $subnet_public_zone_2 --query 'Subnet.{SubnetId:SubnetId}' --output text --region $aws_region)
 
 subnet_public_id_3=$(aws ec2 create-subnet --vpc-id $vpc_id --cidr-block $subnet_public_cidr_3 --availability-zone $subnet_public_zone_2 --query 'Subnet.{SubnetId:SubnetId}' --output text --region $aws_region)
-echo "Subnet Public Id3 are created"
+echo "Success!! Subnet Public Ids are created"
 
 echo "Enabling subnet automatically receives the public address..."
 aws ec2 modify-subnet-attribute --subnet-id $subnet_public_id_1 --map-public-ip-on-launch
@@ -111,60 +99,25 @@ instance_id=$(aws ec2 run-instances --image-id $ami_id \
 echo "ec2-group-4 instance is created"
 
 instance_ip=$(aws ec2 describe-instances --instance-ids $instance_id   --query 'Reservations[*].Instances[*].PublicIpAddress'    --output text --region $aws_region)
-
-# echo "Creating Route Table for new instance"
-# route_table_id=$(aws ec2 create-route-table --vpc-id $vpc_id --query 'RouteTable.{RouteTableId:RouteTableId}' --output text --region $aws_region)
-# echo "Route Table was created"
-
-# echo "Naming the Route Table.."
-# aws ec2 create-tags --resources $route_table_id  --tags Key=Name,Value=$route_table_name
-# echo "Name was given to the Route Table"
-
-# echo "Create a route to internet gateway..."
-# aws ec2 create-route --route-table-id $route_table_id --destination-cidr-block 0.0.0.0/0 --gateway-id $internet_gateway_id 
-# echo "Success! The route added to the internet gateway" 
+echo "Success!! The $instance_name Public IP is '$instance_ip'"
 
 echo "Connecting to the ec2-group-4 instance..." 
-echo "Generate the new private and public keys myNew_key and myNew_key.pub, respectively" 
 
-ssh-keygen -t rsa -f myNew_key 
-chmod 400 myNew_key.pub
+ssh-keygen -t
 
-echo "Waiting for 3 minutes"  
+echo "Waiting for 2 minutes"  
 sleep 3m
 
-echo "Authorize the user and push the public key to the instance"
-aws ec2-instance-connect send-ssh-public-key --region $aws_region --instance-id $instance_id --availability-zone $subnet_public_zone_1 --instance-os-user ec2-user --ssh-public-key file://myNew_key.pub
+ssh-copy-id -i ~/.ssh/id_rsa.pub ec2-user@$instance_ip
+
+sed -i 's/^PasswordAuthentication .*/PasswordAuthentication yes/' /etc/ssh/sshd_config
+echo 'PermitRootLogin yes' >> /etc/ssh/sshd_config
+systemctl reload sshd
 
 
-ssh -i myNew_key ec2-user@$instance_ip
+ssh ec2-user@$instance_ip 
 
 echo "Open port 8080"
 aws ec2 authorize-security-group-ingress --group-id $sg_id --protocol tcp --port 8080 --cidr 0.0.0.0/0 --region $aws_region
-
-
-
-echo "Task-8 Install Jenkins on EC2 ec2-group-4"
-echo "Installation of Jenkins" 
-sudo yum update –y
-
-sudo wget -O /etc/yum.repos.d/jenkins.repo \
-    https://pkg.jenkins.io/redhat-stable/jenkins.repo
-
-sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
-
-sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
-
-sudo amazon-linux-extras install java-openjdk11 -y
-
-sudo yum install jenkins -y
-
-sudo systemctl enable jenkins
-
-sudo systemctl start jenkins
-
-sudo systemctl status jenkins
-
-sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 
 ```
