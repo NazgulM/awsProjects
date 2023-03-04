@@ -25,7 +25,7 @@ instance_name_2="ec2b-group-4"
 instance_name_3="ec2c-group-4"
 instance_type="t2.micro"
 ami_id="ami-0f3c9c466bb525749"
-key_name="pc-2"
+key_name="my_mac_key"
 route_table_name="rt-group4"
 
 echo "Task-1"

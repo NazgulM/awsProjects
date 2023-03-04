@@ -36,6 +36,6 @@ After sleep execution is completed the jenkinsRun.sh will be executed automatica
 Then we can check status of Jenkins
 
 ```
-systemctl jenkins status
+systemctl status jenkins
 ```
 
