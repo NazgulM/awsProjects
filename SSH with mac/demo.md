@@ -21,4 +21,5 @@ chmod 0400 key_name.pem
 ssh -i key_name.pem ec2-user@ipAddress
 
 ```
+
 Successfully connected!
