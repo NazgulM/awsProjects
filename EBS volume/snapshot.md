@@ -16,3 +16,7 @@ Also I can recreate the volume from snapshot, and choose the other AZ, also can 
 ![recreate](sn4.png)
 
 If we look the Snapshots, can see the Recycle Bin--> Create retention rule --So the way to protect EBS snapshots and AMIs from accidental deletion, if click on create the rule , now it's created
+
+![recycle](sn5.png)
+
+![resources](sn6.png)
