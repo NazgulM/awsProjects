@@ -1,4 +1,4 @@
-# AMI 
+# AMI
 
 For this I am going to launch instance, scroll down, choose Amazon Linux 2, t2.micro, used an existing security group, scroll down go to advanced setting, user data
 
@@ -14,7 +14,7 @@ systemctl enable httpd
 
 The instance is going to launch and install the Apache webserver.
 
-if we open in the browser http://publicIPAddress
+if we open in the browser <http://publicIPAddress>
 we can the following page:
 
 ![instance](ec2.png)
@@ -33,7 +33,3 @@ So now I can crete an instance from my ami
 ![from](fromAmi.png)
 
 It was much quicker, could be security software, much faster boot up.
-
-
-
-
