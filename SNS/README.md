@@ -14,5 +14,3 @@ And you can receive the notification to the email
 ![publish](publish.png)
 
 After please delete the created topics and subscriptions
-
-
